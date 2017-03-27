@@ -1,6 +1,6 @@
 require 'spec_helper'
 RSpec.describe Position do
-  it 'initializes with an x and y coordinate' do
+  it 'initializes with a longitude and latitude' do
     position = Position.new(longitude: 1, latitude: 2)
     expect(position.longitude).to eq 1
     expect(position.latitude).to eq 2
