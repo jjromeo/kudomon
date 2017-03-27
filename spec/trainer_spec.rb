@@ -8,7 +8,7 @@ RSpec.describe Trainer do
   end
 
   context 'catching a kudomon' do
-    let(:a_kudomon) { double :kudomon }
+    let(:a_kudomon) { double :kudomon, position: position }
     context 'when it is nearby' do
       let(:position) { double(:position, nearby?: true) }
       it 'the kudomon can be caught' do

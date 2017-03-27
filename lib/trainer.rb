@@ -7,6 +7,6 @@ class Trainer
   end
 
   def capture(a_kudomon)
-    kudomon << a_kudomon if position.nearby?(kudomon)
+    kudomon << a_kudomon if position.nearby?(a_kudomon.position)
   end
 end
