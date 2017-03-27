@@ -1,12 +1,25 @@
 class Kudomon
-  attr_reader :species, :name, :type, :position, :master_ids
+  attr_reader :species, :name, :type, :position, :combat_points, :master_ids
+  attr_accessor :health_points
   KUDOMON = {
-    sourbulb: {name: 'Sourbulb', type: :grass},
-    mancharred: {name: 'Mancharred', type: :fire},
-    wartle: {name: 'Wartle', type: :water},
-    chikapu: {name: 'Chikapu', type: :electric},
-    earthbro: {name: 'Earthbro', type: :rock},
-    kedavra: {name: 'Kedavra', type: :psychic},
+    sourbulb: {
+      name: 'Sourbulb', type: :grass, health_points: 30, combat_points: 4
+    },
+    mancharred: {
+      name: 'Mancharred', type: :fire, health_points: 20, combat_points: 7
+    },
+    wartle: {
+      name: 'Wartle', type: :water, health_points: 25, combat_points: 5
+    },
+    chikapu: {
+      name: 'Chikapu', type: :electric, health_points: 15, combat_points: 11
+    },
+    earthbro: {
+      name: 'Earthbro', type: :rock, health_points: 45, combat_points: 2
+    },
+    kedavra: {
+      name: 'Kedavra', type: :psychic, health_points: 18, combat_points: 8
+    },
   }
 
   def initialize(species, position:)
@@ -14,14 +27,19 @@ class Kudomon
 
     @species = species
     @position = position
-    @name = stats[:name]
-    @type = stats[:type]
+    initialize_stats
     @master_ids = []
   end
 
-  def stats
-    KUDOMON[species]
+  def add_new_owner(trainer)
+    master_ids << trainer.object_id
   end
+
+  def caught_by?(trainer)
+    master_ids.include?(trainer.object_id)
+  end
+
+  private
 
   def valid?(species)
     available_kudomon.include?(species)
@@ -31,11 +49,14 @@ class Kudomon
     KUDOMON.keys
   end
 
-  def add_new_owner(trainer)
-    master_ids << trainer.object_id
+  def initialize_stats
+    @name = stats[:name]
+    @type = stats[:type]
+    @health_points = stats[:health_points]
+    @combat_points = stats[:combat_points]
   end
 
-  def caught_by?(trainer)
-    master_ids.include?(trainer.object_id)
+  def stats
+    KUDOMON[species]
   end
 end

@@ -7,10 +7,13 @@ RSpec.describe Kudomon do
     context 'with a species which exists' do
       subject(:sourbulb) { Kudomon.new(:sourbulb, position: position)}
 
-      its(:name) { is_expected.to eq 'Sourbulb'}
-      its(:type) { is_expected.to eq :grass}
-      its(:position) { is_expected.to eq position }
-
+      context 'initializes with preset stats' do
+        its(:name) { is_expected.to eq 'Sourbulb'}
+        its(:type) { is_expected.to eq :grass}
+        its(:position) { is_expected.to eq position }
+        its(:health_points) { are_expected.to eq 30 }
+        its(:combat_points) { are_expected.to eq 4 }
+      end
       it 'will not raise an error' do
         valid_kudomon = %i(sourbulb mancharred wartle chikapu earthbro kedavra)
         valid_kudomon.each do |kudomon|
