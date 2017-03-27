@@ -1,6 +1,6 @@
 require 'spec_helper'
 RSpec.describe Trainer do
-  let(:position) { double :position }
+  let(:position) { instance_double Position }
   let(:trainer) { Trainer.new(position: position) }
 
   it 'initializes with a position' do

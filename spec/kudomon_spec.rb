@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'byebug'
 RSpec.describe Kudomon do
   context 'initializing with a species' do
-    let(:position) { double :position }
+    let(:position) { instance_double Position}
 
     context 'with a species which exists' do
       subject(:sourbulb) { Kudomon.new(:sourbulb, position: position)}
