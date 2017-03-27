@@ -8,7 +8,7 @@ RSpec.describe Trainer do
   end
 
   context 'catching a kudomon' do
-    let(:a_kudomon) { instance_double Kudomon, position: position, name: 'Sourbulb', add_new_owner: false }
+    let(:a_kudomon) { instance_double Kudomon, position: position, name: 'Sourbulb', add_new_owner: false, caught_by?: false }
 
     context 'when it is nearby' do
       let(:position) { instance_double(Position, nearby?: true) }
@@ -23,13 +23,21 @@ RSpec.describe Trainer do
         expect(a_kudomon).to receive(:add_new_owner).with(trainer)
         trainer.capture!(a_kudomon)
       end
+
+      context 'when the trainer has already caught that kudomon' do
+        let(:a_kudomon) { instance_double Kudomon, position: position, name: 'Sourbulb', add_new_owner: false, caught_by?: true }
+        it 'the kudomon cannot be caught' do
+          trainer.capture!(a_kudomon)
+          expect { trainer.capture!(a_kudomon) }.not_to change { trainer.kudomon.length }
+        end
+      end
     end
+
 
     context 'when it is not nearby' do
       let(:position) { instance_double(Position, nearby?: false) }
       it 'the kudomon cannot be caught' do
-        trainer.capture!(a_kudomon)
-        expect(trainer.kudomon).not_to include(a_kudomon)
+        expect { trainer.capture!(a_kudomon) }.not_to change { trainer.kudomon.length }
       end
     end
   end
