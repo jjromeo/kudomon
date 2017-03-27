@@ -5,9 +5,13 @@ class Kudomon
     mancharred: {name: 'Mancharred', type: :fire},
     wartle: {name: 'Wartle', type: :water},
     chikapu: {name: 'Chikapu', type: :electric},
+    earthbro: {name: 'Earthbro', type: :rock},
+    kedavra: {name: 'Kedavra', type: :psychic},
   }
 
   def initialize(species, position:)
+    fail 'This kudomon does not exist' unless valid?(species)
+
     @species = species
     @position = position
     @name = stats[:name]
@@ -16,5 +20,13 @@ class Kudomon
 
   def stats
     KUDOMON[species]
+  end
+
+  def valid?(species)
+    available_kudomon.include?(species)
+  end
+
+  def available_kudomon
+    KUDOMON.keys
   end
 end
