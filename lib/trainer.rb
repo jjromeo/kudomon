@@ -6,7 +6,10 @@ class Trainer
     @kudomon = []
   end
 
-  def capture(a_kudomon)
-    kudomon << a_kudomon if position.nearby?(a_kudomon.position)
+  def capture!(a_kudomon)
+    if position.nearby?(a_kudomon.position)
+      a_kudomon.add_new_owner(self)
+      kudomon << a_kudomon.clone
+    end
   end
 end

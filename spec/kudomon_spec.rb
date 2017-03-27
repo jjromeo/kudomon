@@ -24,5 +24,29 @@ RSpec.describe Kudomon do
         expect { Kudomon.new(:fakemon, position: position) }.to raise_error "This kudomon does not exist"
       end
     end
+
+    context 'being caught' do
+      let(:sourbulb) { Kudomon.new(:sourbulb, position: position) }
+      it 'knows when it has not been caught by a trainer' do
+        trainer = instance_double Trainer
+        expect(sourbulb.caught_by?(trainer)).to eq false
+      end
+
+      it 'knows when it has been caught by a trainer' do
+        trainer = instance_double Trainer
+        sourbulb.add_new_owner(trainer)
+        expect(sourbulb.caught_by?(trainer)).to eq true
+      end
+
+      it 'can be caught by multiple trainers' do
+        trainer = instance_double Trainer
+        trainer2 = instance_double Trainer
+
+        sourbulb.add_new_owner(trainer)
+        sourbulb.add_new_owner(trainer2)
+        expect(sourbulb.caught_by?(trainer)).to eq true
+        expect(sourbulb.caught_by?(trainer2)).to eq true
+      end
+    end
   end
 end

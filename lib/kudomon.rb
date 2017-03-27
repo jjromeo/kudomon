@@ -1,5 +1,5 @@
 class Kudomon
-  attr_reader :species, :name, :type, :position
+  attr_reader :species, :name, :type, :position, :master_ids
   KUDOMON = {
     sourbulb: {name: 'Sourbulb', type: :grass},
     mancharred: {name: 'Mancharred', type: :fire},
@@ -16,6 +16,7 @@ class Kudomon
     @position = position
     @name = stats[:name]
     @type = stats[:type]
+    @master_ids = []
   end
 
   def stats
@@ -28,5 +29,13 @@ class Kudomon
 
   def available_kudomon
     KUDOMON.keys
+  end
+
+  def add_new_owner(trainer)
+    master_ids << trainer.object_id
+  end
+
+  def caught_by?(trainer)
+    master_ids.include?(trainer.object_id)
   end
 end
