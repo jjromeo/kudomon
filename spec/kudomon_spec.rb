@@ -10,6 +10,13 @@ RSpec.describe Kudomon do
       its(:name) { is_expected.to eq 'Sourbulb'}
       its(:type) { is_expected.to eq :grass}
       its(:position) { is_expected.to eq position }
+
+      it 'will not raise an error' do
+        valid_kudomon = %i(sourbulb mancharred wartle chikapu earthbro kedavra)
+        valid_kudomon.each do |kudomon|
+          expect { Kudomon.new(kudomon, position: position) }.not_to raise_error
+        end
+      end
     end
 
     context 'with a species which does not exist' do
