@@ -1,6 +1,6 @@
 class Kudomon
   attr_reader :species, :name, :type, :position, :combat_points, :master_ids
-  attr_accessor :health_points
+  attr_accessor :health_points, :knocked_out
   KUDOMON = {
     sourbulb: {
       name: 'Sourbulb', type: :grass, health_points: 30, combat_points: 4
@@ -27,6 +27,7 @@ class Kudomon
 
     @species = species
     @position = position
+    @knocked_out = false
     initialize_stats
     @master_ids = []
   end
@@ -42,12 +43,15 @@ class Kudomon
   def attack!(kudomon)
   end
 
-  def receive_damage(damage_amount)
+  def receive_damage!(damage_amount)
     self.health_points -= damage_amount
+    if health_points <= 0
+      @knocked_out = true
+    end
   end
 
   def knocked_out?
-    false
+    @knocked_out
   end
 
   private

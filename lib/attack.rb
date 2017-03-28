@@ -15,7 +15,7 @@ class Attack
 
   def deal_damage
     attack_value = add_bonus_damage(attacker.combat_points)
-    defender.receive_damage(attack_value)
+    defender.receive_damage!(attack_value)
   end
 
   private

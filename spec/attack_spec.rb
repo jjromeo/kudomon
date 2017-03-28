@@ -13,13 +13,13 @@ RSpec.describe Attack do
 
     it 'will do standard damage to a pokemon it is not strong against' do
       attack = Attack.new(fire_kudomon, water_kudomon)
-      expect(water_kudomon).to receive(:receive_damage).with(10)
+      expect(water_kudomon).to receive(:receive_damage!).with(10)
       attack.deal_damage
     end
 
     it 'will do extra damage when it is strong an element' do
       attack = Attack.new(water_kudomon, fire_kudomon)
-      expect(fire_kudomon).to receive(:receive_damage).with(15)
+      expect(fire_kudomon).to receive(:receive_damage!).with(15)
       attack.deal_damage
     end
   end
