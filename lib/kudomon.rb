@@ -39,6 +39,13 @@ class Kudomon
     master_ids.include?(trainer.object_id)
   end
 
+  def attack!(kudomon)
+  end
+
+  def knocked_out?
+    false
+  end
+
   private
 
   def valid?(species)
