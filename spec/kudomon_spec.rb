@@ -61,6 +61,14 @@ RSpec.describe Kudomon do
         to change { sourbulb.health_points }.from(30).to(25)
     end
 
+    it 'can attack another kudomon' do
+      attack = instance_double Attack
+      mancharred = Kudomon.new(:mancharred, position: position)
+      allow(Attack).to receive(:new).with(sourbulb, mancharred).and_return(attack)
+      expect(attack).to receive(:deal_damage!)
+      sourbulb.attack!(mancharred)
+    end
+
     it 'will be knocked out when its hp is reduced below 0' do
       expect { sourbulb.receive_damage!(30) }.
         to change { sourbulb.knocked_out? }.from(false).to(true)

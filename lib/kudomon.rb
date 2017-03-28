@@ -41,6 +41,7 @@ class Kudomon
   end
 
   def attack!(kudomon)
+    Attack.new(self, kudomon).deal_damage!
   end
 
   def receive_damage!(damage_amount)
