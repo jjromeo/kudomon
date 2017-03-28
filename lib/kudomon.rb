@@ -42,6 +42,10 @@ class Kudomon
   def attack!(kudomon)
   end
 
+  def receive_damage(damage_amount)
+    self.health_points -= damage_amount
+  end
+
   def knocked_out?
     false
   end
