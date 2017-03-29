@@ -33,7 +33,6 @@ RSpec.describe Trainer do
       end
     end
 
-
     context 'when it is not nearby' do
       let(:position) { instance_double(Position, nearby?: false) }
       it 'the kudomon cannot be caught' do

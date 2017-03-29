@@ -8,6 +8,8 @@ class Attack
     electric: :water,
   }
 
+  WEAKNESS_MULTIPLIER = 1.5
+
   def initialize(attacker, defender)
     @attacker = attacker
     @defender = defender
@@ -21,7 +23,7 @@ class Attack
   private
 
   def add_bonus_damage(damage_amount)
-    super_effective? ? (damage_amount * 1.5).ceil : damage_amount
+    super_effective? ? (damage_amount * WEAKNESS_MULTIPLIER).ceil : damage_amount
   end
 
   def super_effective?
