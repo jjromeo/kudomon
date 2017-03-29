@@ -33,6 +33,10 @@ class Kudomon
     @master_ids = []
   end
 
+  def to_s
+    name
+  end
+
   def add_new_owner(trainer)
     master_ids << trainer.object_id
   end
@@ -49,6 +53,7 @@ class Kudomon
     self.health_points -= damage_amount
     if health_points <= 0
       @knocked_out = true
+      puts "#{name} was knocked out!"
     end
   end
 

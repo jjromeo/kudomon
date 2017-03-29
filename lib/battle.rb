@@ -42,5 +42,6 @@ class Battle
   def end_battle!(winner:)
     @ended = true
     @winner = winner
+    puts "#{winner} has won the battle!"
   end
 end
