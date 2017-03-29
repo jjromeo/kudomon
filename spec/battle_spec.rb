@@ -1,8 +1,9 @@
 require 'spec_helper'
 RSpec.describe Battle do
-    let(:kudomon1) { instance_double Kudomon, attack!: false, knocked_out?: false }
-    let(:kudomon2) { instance_double Kudomon, attack!: false, knocked_out?: false }
-    let(:battle) { Battle.new(kudomon1, kudomon2) }
+  let(:kudomon1) { instance_double Kudomon, attack!: false, knocked_out?: false }
+  let(:kudomon2) { instance_double Kudomon, attack!: false, knocked_out?: false }
+  let(:battle) { Battle.new(kudomon1, kudomon2) }
+
   it 'is initialized with two different kudomon' do
     expect(battle.kudomon1).to eq kudomon1
     expect(battle.kudomon2).to eq kudomon2

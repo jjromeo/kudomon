@@ -6,7 +6,6 @@ RSpec.describe Kudomon do
 
   context 'initializing with a species' do
     context 'with a species which exists' do
-
       context 'initializes with preset stats' do
         its(:name) { is_expected.to eq 'Sourbulb'}
         its(:type) { is_expected.to eq :grass}
@@ -33,21 +32,23 @@ RSpec.describe Kudomon do
   context 'being caught' do
     it 'knows when it has not been caught by a trainer' do
       trainer = instance_double Trainer
+
       expect(sourbulb.caught_by?(trainer)).to eq false
     end
 
     it 'knows when it has been caught by a trainer' do
       trainer = instance_double Trainer
       sourbulb.add_new_owner(trainer)
+
       expect(sourbulb.caught_by?(trainer)).to eq true
     end
 
     it 'can be caught by multiple trainers' do
       trainer = instance_double Trainer
       trainer2 = instance_double Trainer
-
       sourbulb.add_new_owner(trainer)
       sourbulb.add_new_owner(trainer2)
+
       expect(sourbulb.caught_by?(trainer)).to eq true
       expect(sourbulb.caught_by?(trainer2)).to eq true
     end
@@ -58,6 +59,7 @@ RSpec.describe Kudomon do
     let(:mancharred) { Kudomon.new(:mancharred, position: position) }
     let(:attack_instance) { instance_double Attack }
     let(:attack) { class_double Attack }
+
     it { is_expected.not_to be_knocked_out }
 
     it 'can receive damage' do
@@ -67,6 +69,7 @@ RSpec.describe Kudomon do
 
     it 'can attack another kudomon' do
       allow(attack).to receive(:new).with(wartle, mancharred).and_return(attack_instance)
+
       expect(attack_instance).to receive(:deal_damage!)
       wartle.attack!(mancharred)
     end
@@ -75,9 +78,11 @@ RSpec.describe Kudomon do
       expect { sourbulb.receive_damage!(30) }.
         to change { sourbulb.knocked_out? }.from(false).to(true)
     end
+
     context 'when knocked out' do
       it 'cannot attack a kudomon when knocked out' do
         allow(wartle).to receive(:knocked_out?).and_return(true)
+
         expect(attack).not_to receive(:new)
         wartle.attack!(mancharred)
       end
