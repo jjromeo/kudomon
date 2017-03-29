@@ -1,5 +1,5 @@
 class Kudomon
-  attr_reader :species, :name, :type, :position, :combat_points, :master_ids, :attack
+  attr_reader :species, :name, :type, :position, :combat_points, :master_ids, :attack_class
   attr_accessor :health_points, :knocked_out
   KUDOMON = {
     sourbulb: {
@@ -22,10 +22,10 @@ class Kudomon
     },
   }
 
-  def initialize(species, position:, attack: Attack)
+  def initialize(species, position:, attack_class: Attack)
     fail 'This kudomon does not exist' unless valid?(species)
 
-    @attack = attack
+    @attack_class = attack_class
     @species = species
     @position = position
     @knocked_out = false
@@ -45,11 +45,11 @@ class Kudomon
     master_ids.include?(trainer.object_id)
   end
 
-  def attack!(kudomon)
-    attack.new(self, kudomon).deal_damage! unless knocked_out?
+  def attack(kudomon)
+    attack_class.new(self, kudomon).deal_damage unless knocked_out?
   end
 
-  def receive_damage!(damage_amount)
+  def receive_damage(damage_amount)
     self.health_points -= damage_amount
     if health_points <= 0
       @knocked_out = true

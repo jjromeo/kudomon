@@ -55,28 +55,28 @@ RSpec.describe Kudomon do
   end
 
   context 'battling' do
-    let(:wartle) { Kudomon.new(:wartle, position: position, attack: attack) }
-    let(:mancharred) { Kudomon.new(:mancharred, position: position) }
     let(:attack_instance) { instance_double Attack }
     let(:attack) { class_double Attack }
+    let(:wartle) { Kudomon.new(:wartle, position: position, attack_class: attack) }
+    let(:mancharred) { Kudomon.new(:mancharred, position: position) }
 
     it { is_expected.not_to be_knocked_out }
 
     it 'can receive damage' do
-      expect{ sourbulb.receive_damage!(5) }.
+      expect{ sourbulb.receive_damage(5) }.
         to change { sourbulb.health_points }.from(30).to(25)
     end
 
     it 'can attack another kudomon' do
       allow(attack).to receive(:new).with(wartle, mancharred).and_return(attack_instance)
 
-      expect(attack_instance).to receive(:deal_damage!)
-      wartle.attack!(mancharred)
+      expect(attack_instance).to receive(:deal_damage)
+      wartle.attack(mancharred)
     end
 
     it 'will be knocked out when its hp is reduced below 0' do
-      expect { sourbulb.receive_damage!(30) }.
-        to change { sourbulb.knocked_out? }.from(false).to(true)
+      expect { sourbulb.receive_damage(30) }
+        .to change { sourbulb.knocked_out? }.from(false).to(true)
     end
 
     context 'when knocked out' do
@@ -84,7 +84,7 @@ RSpec.describe Kudomon do
         allow(wartle).to receive(:knocked_out?).and_return(true)
 
         expect(attack).not_to receive(:new)
-        wartle.attack!(mancharred)
+        wartle.attack(mancharred)
       end
     end
   end

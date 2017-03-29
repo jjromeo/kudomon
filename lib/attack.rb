@@ -5,7 +5,7 @@ class Attack
     fire: :grass,
     grass: :rock,
     rock: :electric,
-    electric: :water,
+    electric: :water
   }
 
   WEAKNESS_MULTIPLIER = 1.5
@@ -15,10 +15,10 @@ class Attack
     @defender = defender
   end
 
-  def deal_damage!
+  def deal_damage
     attack_value = add_bonus_damage(attacker.combat_points)
     puts "#{attacker} hit #{defender} for #{attack_value} damage"
-    defender.receive_damage!(attack_value)
+    defender.receive_damage(attack_value)
   end
 
   private

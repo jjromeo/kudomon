@@ -15,31 +15,29 @@ class Battle
   end
 
   def second_attacker
-    (both_kudomon- [first_attacker]).first
+    (both_kudomon - [first_attacker]).first
   end
 
-  def start_battle!
-    until ended == true
-      turn
-    end
+  def start_battle
+    turn until ended == true
     winner
   end
 
   def turn
     if both_kudomon.any?(&:knocked_out?)
       winning_kudomon = both_kudomon.reject(&:knocked_out?).first
-      end_battle!(winner: winning_kudomon)
+      end_battle(winner: winning_kudomon)
     else
       fight
     end
   end
 
   def fight
-    first_attacker.attack!(second_attacker)
-    second_attacker.attack!(first_attacker)
+    first_attacker.attack(second_attacker)
+    second_attacker.attack(first_attacker)
   end
 
-  def end_battle!(winner:)
+  def end_battle(winner:)
     @ended = true
     @winner = winner
     puts "#{winner} has won the battle!"

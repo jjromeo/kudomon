@@ -7,20 +7,20 @@ RSpec.describe Attack do
   its(:attacker) { is_expected.to eq attacker }
   its(:defender) { is_expected.to eq defender }
 
-  context '#deal_damage!' do
+  context '#deal_damage' do
     let(:water_kudomon) { instance_double Kudomon, type: :water, combat_points: 10, health_points: 20 }
     let(:fire_kudomon) { instance_double Kudomon, type: :fire, combat_points: 10, health_points: 20 }
 
     it 'will do standard damage when there is no weakness' do
       attack = Attack.new(fire_kudomon, water_kudomon)
-      expect(water_kudomon).to receive(:receive_damage!).with(10)
-      attack.deal_damage!
+      expect(water_kudomon).to receive(:receive_damage).with(10)
+      attack.deal_damage
     end
 
     it 'will do extra damage when an attacker is strong against a defender' do
       attack = Attack.new(water_kudomon, fire_kudomon)
-      expect(fire_kudomon).to receive(:receive_damage!).with(15)
-      attack.deal_damage!
+      expect(fire_kudomon).to receive(:receive_damage).with(15)
+      attack.deal_damage
     end
   end
 end
